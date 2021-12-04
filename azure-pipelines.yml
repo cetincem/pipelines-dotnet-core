@@ -12,10 +12,21 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-jobs:
-- job: 'ThisIsYourJob'
-  steps:
-  - script: echo 'Hello World'
-    displayName: 'Say Hello'
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
+stages:
+  - stage: 'FirstStage'
+    displayName: 'First Stage'
+    jobs:
+    - job: 'ThisIsYourJob'
+      displayName: 'This is your job'
+      steps:
+      - script: echo 'Hello World'
+        displayName: 'Say Hello'
+      - script: dotnet build --configuration $(buildConfiguration)
+        displayName: 'dotnet build $(buildConfiguration)'
+  - stage: 'SecondStage'
+    displayName: 'Second Stage of life'
+    jobs:
+    - job: 'SayToMe'
+      displayName: 'Say to Me'
+      steps:
+      - script: echo 'Say What?'
