@@ -13,5 +13,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- script: echo 'Hello World'
+  displayName: 'Say Hello'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
