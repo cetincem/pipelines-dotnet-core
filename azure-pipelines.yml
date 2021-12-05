@@ -21,6 +21,10 @@ stages:
       steps:
       - script: echo 'Hello World'
         displayName: 'Say Hello'
+      - script: pwd
+        displayName: 'Show working directory'
+      - script: ls
+        displayName: 'List folders'
       - script: dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
   - stage: 'SecondStage'
