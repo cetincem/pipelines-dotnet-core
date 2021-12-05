@@ -21,28 +21,9 @@ stages:
       steps:
       - script: echo 'Hello World'
         displayName: 'Say Hello'
-      - script: pwd
-        displayName: 'Show working directory'
+      - script: echo $(System.DefaultWorkingDirectory)
+        displayName: 'Default Working Directory'
       - script: ls
         displayName: 'List folders'
       - script: dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
-  - stage: 'SecondStage'
-    displayName: 'Second Stage'
-    jobs:
-    - job: 'SayToMe'
-      displayName: 'Say to Me'
-      steps:
-      - script: echo 'Say What?'
-    - job: 'PublishWebApp'
-      displayName: 'Publish My App'
-      steps:
-      - publish: $(System.DefaultWorkingDirectory)/bin/WebApp
-        artifact: WebApp
-  - stage: 'ThirdStage'
-    displayName: 'Third Stage'
-    jobs:
-    - job: 'Finaljob'
-      displayName: 'Final Job'
-      steps:
-      - script: echo 'This is the end of the world'
