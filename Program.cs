@@ -19,7 +19,7 @@ namespace pipelines_dotnet_core
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://localhost:5000")
+                .UseUrls("http://localhost:5000", "http://0.0.0.0:5001")
                 .UseIISIntegration()
                 .UseStartup<Startup>();
     }
