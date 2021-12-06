@@ -34,3 +34,9 @@ stages:
         inputs:
           command: 'publish'
           publishWebProjects: true
+          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: True
+      - task: PublishPipelineArtifact@1
+        inputs:
+         targetPath: '$(Build.ArtifactStagingDirectory)'
+         artifactName: 'MyWebApp'
