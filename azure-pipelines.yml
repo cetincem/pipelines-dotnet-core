@@ -40,3 +40,20 @@ stages:
         inputs:
          targetPath: '$(Build.ArtifactStagingDirectory)'
          artifactName: 'MyWebApp'
+  - stage: 'DeployStage'
+    displayName: 'Final Stage'
+    jobs:
+    - job: 'DeploymentJob'
+      displayName: 'Deployment Job'
+      steps:
+      - script: echo 'Lets deploy'
+    - deployment: VMDeploy
+      displayName: 'Deploy to VM'
+      environment:
+        name: Development
+        resourceType: VirtualMachine
+      strategy:
+       runOnce:
+         deploy:
+           steps:
+             - script: echo 'Deployed!'
