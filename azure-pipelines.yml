@@ -11,18 +11,16 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  environmentName: 'Development'
+  artifactName: 'MyWebApp'
 
 stages:
   - stage: 'BuildStage'
     displayName: 'First Stage'
     jobs:
-    - job: 'ThisIsYourJob'
-      displayName: 'This is your job'
+    - job: 'BuildJob'
+      displayName: 'Build'
       steps:
-      - script: echo $(System.DefaultWorkingDirectory)
-        displayName: 'Default Working Directory'
-      - script: ls
-        displayName: 'List folders'
       - script: dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
   - stage: 'PublishStage'
@@ -39,18 +37,14 @@ stages:
       - task: PublishPipelineArtifact@1
         inputs:
          targetPath: '$(Build.ArtifactStagingDirectory)'
-         artifactName: 'MyWebApp'
+         artifactName: '$(artifactName)'
   - stage: 'DeployStage'
     displayName: 'Final Stage'
     jobs:
-    - job: 'DeploymentJob'
-      displayName: 'Deployment Job'
-      steps:
-      - script: echo 'Lets deploy'
     - deployment: VMDeploy
-      displayName: 'Deploy to VM'
+      displayName: 'Deploy to $(environmentName)'
       environment:
-        name: Development
+        name: $(environmentName)
         resourceType: VirtualMachine
       strategy:
        runOnce:
