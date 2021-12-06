@@ -13,17 +13,24 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-  - stage: 'FirstStage'
+  - stage: 'BuildStage'
     displayName: 'First Stage'
     jobs:
     - job: 'ThisIsYourJob'
       displayName: 'This is your job'
       steps:
-      - script: echo 'Hello World'
-        displayName: 'Say Hello'
       - script: echo $(System.DefaultWorkingDirectory)
         displayName: 'Default Working Directory'
       - script: ls
         displayName: 'List folders'
       - script: dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
+  - stage: 'PublishStage'
+    jobs:
+    - job: 'PublishJob'
+      displayName: 'Publish'
+      steps:
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: true
