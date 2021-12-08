@@ -51,3 +51,9 @@ stages:
          deploy:
            steps:
              - script: echo 'Deployed!'
+             - task: ExtractFiles@1
+               inputs:
+                 archiveFilePatterns: '**/s.zip'
+                 destinationFolder: '**/s'
+                 cleanDestinationFolder: true
+                 overwriteExistingFiles: false
