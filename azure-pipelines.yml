@@ -50,11 +50,11 @@ stages:
        runOnce:
          deploy:
            steps:
-             - script: echo 'Deployed!'
-             - script: dir
-             - task: ExtractFiles@1
-               inputs:
-                 archiveFilePatterns: '../$(artifactName)/s.zip'
-                 destinationFolder: '../$(artifactName)/s'
-                 cleanDestinationFolder: true
-                 overwriteExistingFiles: true
+            - task: ExtractFiles@1
+              inputs:
+                archiveFilePatterns: '../$(artifactName)/s.zip'
+                destinationFolder: '../$(artifactName)/s'
+                cleanDestinationFolder: true
+                overwriteExistingFiles: true
+            - script: iisreset
+              
