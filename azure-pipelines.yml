@@ -47,14 +47,15 @@ stages:
         name: $(environmentName)
         resourceType: VirtualMachine
       strategy:
-       runOnce:
-         deploy:
-           steps:
+        runOnce:
+          deploy:
+            steps:
+            - script: issreset /stop
             - task: ExtractFiles@1
               inputs:
                 archiveFilePatterns: '../$(artifactName)/s.zip'
                 destinationFolder: '../$(artifactName)/s'
                 cleanDestinationFolder: true
                 overwriteExistingFiles: true
-            - script: iisreset
-              
+            - script: iisreset /start
+
